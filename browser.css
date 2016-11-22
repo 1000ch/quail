@@ -1,0 +1,19 @@
+.navbar {
+  -webkit-app-region: drag;
+}
+
+.navbar-main {
+  padding-top: 25px;
+  -webkit-app-region: drag;
+}
+
+.navbar-sub {
+  -webkit-app-region: drag;
+}
+
+@media (max-width: 900px) {
+  .navbar-main {
+    padding-top: 0;
+    padding-left: 80px;
+  }
+}
