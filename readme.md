@@ -3,6 +3,8 @@
 Unofficial [esa](https://esa.io/) app
 
 [![Build Status](https://travis-ci.org/1000ch/quail.svg?branch=master)](https://travis-ci.org/1000ch/quail)
+[![Dependency Status](https://david-dm.org/1000ch/quail.svg)](https://david-dm.org/1000ch/quail)
+[![devDependency Status](https://david-dm.org/1000ch/quail/dev-status.svg)](https://david-dm.org/1000ch/quail?type=dev)
 
 ![Quail demo](demo.png)
 
