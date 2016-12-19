@@ -18,11 +18,11 @@ macOS 10.9+ & Linux are supported.
 
 ### Windows
 
-Coming soon.
+[Download](https://github.com/1000ch/quail/releases) and extract `.zip`, and move `Quail.exe` to some location.
 
 ### Linux
 
-[Download](https://github.com/1000ch/quail/releases) and extract `.zip`, and move `Quail.app` to somewhere.
+[Download](https://github.com/1000ch/quail/releases) and extract `.zip`, and move `Quail` to some location.
 
 ## License
 
