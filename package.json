@@ -1,7 +1,7 @@
 {
   "name": "quail",
   "productName": "Quail",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Quail app",
   "license": "MIT",
   "repository": "1000ch/quail",
@@ -15,7 +15,7 @@
     "start": "electron .",
     "postversion": "git push && git push --tags",
     "build": "npm run build:macos && npm run build:linux && npm run build:windows",
-    "build:macos": "electron-packager . --overwrite --asar --out=dist --ignore='^media$' --platform=darwin --arch=x64 --icon=static/Icon.icns --app-bundle-id=net.1000ch.quail --sign='Developer ID Application: Shogo Sensui (NZR22QGKNQ)' && cd dist/Quail-darwin-x64 && zip -ryXq9 ../Quail-macos-v${npm_package_version}.zip Quail.app",
+    "build:macos": "electron-packager . --overwrite --asar --out=dist --ignore='^media$' --platform=darwin --arch=x64 --icon=static/Icon.icns --app-bundle-id=net.1000ch.quail --osx-sign='Developer ID Application: Shogo Sensui (NZR22QGKNQ)' && cd dist/Quail-darwin-x64 && zip -ryXq9 ../Quail-macos-v${npm_package_version}.zip Quail.app",
     "build:linux": "electron-packager . --overwrite --out=dist --ignore='^media$' --platform=linux --arch=x64 --app-bundle-id=net.1000ch.quail && cd dist/Quail-linux-x64/ && zip -ryq9 ../Quail-linux-v${npm_package_version}.zip *",
     "build:windows": "electron-packager . --overwrite --asar --out=dist --ignore='^media$' --platform=win32 --arch=ia32 --icon=static/Icon.ico --version-string.ProductName=$npm_package_productName && cd dist/Quail-win32-ia32 && zip -ryq9 ../Quail-windows-v${npm_package_version}.zip *"
   },
