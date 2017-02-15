@@ -16,6 +16,12 @@ macOS 10.9+ & Linux are supported.
 
 [Download](https://github.com/1000ch/quail/releases) and extract `.zip`, and move `Quail.app` to `/Applications`.
 
+Alternatively, if you use [Homebrew](http://brew.sh/), you can install via:
+
+```bash
+$ brew cask install quail
+```
+
 ### Windows
 
 [Download](https://github.com/1000ch/quail/releases) and extract `.zip`, and move `Quail.exe` to some location.
