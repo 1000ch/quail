@@ -21,6 +21,7 @@
     "build:windows": "electron-packager . --overwrite --asar --out=dist --ignore='^media$' --platform=win32 --arch=ia32 --icon=static/Icon.ico --version-string.ProductName=$npm_package_productName && cd dist/Quail-win32-ia32 && zip -ryq9 ../Quail-windows-v${npm_package_version}.zip *"
   },
   "dependencies": {
+    "devtron": "^1.4.0",
     "electron-config": "^0.2.1",
     "electron-context-menu": "^0.8.0",
     "electron-debug": "^1.1.0",
