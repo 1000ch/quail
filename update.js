@@ -1,4 +1,5 @@
 'use strict';
+const url = require('url');
 const electron = require('electron');
 const pkg = require('./package');
 
@@ -44,7 +45,7 @@ module.exports.init = appMenu => {
     applyUpdate.enabled = true;
   });
 
-  autoUpdater.setFeedURL(`https://quail-updater.herokuapp.com/updates/latest?v=v${pkg.version}`);
+  autoUpdater.setFeedURL(url.resolve('https://hazel-imrgmeuzge.now.sh', 'update', process.platform, electron.app.getVersion()));
 };
 
 module.exports.checkUpdate = () => {
