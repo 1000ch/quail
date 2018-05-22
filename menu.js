@@ -1,10 +1,8 @@
 'use strict';
 const os = require('os');
 const path = require('path');
-const electron = require('electron');
+const {app, shell, dialog, Menu} = require('electron');
 
-const app = electron.app;
-const shell = electron.shell;
 const appName = app.getName();
 
 const helpSubmenu = [{
@@ -32,7 +30,7 @@ if (process.platform !== 'darwin') {
   }, {
     role: 'about',
     click() {
-      electron.dialog.showMessageBox({
+      dialog.showMessageBox({
         title: `About ${appName}`,
         message: `${appName} ${app.getVersion()}`,
         detail: 'Created by Shogo Sensui',
@@ -141,4 +139,4 @@ const otherTpl = [{
 
 const tpl = process.platform === 'darwin' ? darwinTpl : otherTpl;
 
-module.exports = electron.Menu.buildFromTemplate(tpl);
+module.exports = Menu.buildFromTemplate(tpl);
