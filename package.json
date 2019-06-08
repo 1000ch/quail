@@ -5,20 +5,21 @@
   "description": "Quail app",
   "private": true,
   "license": "MIT",
-  "repository": "1000ch/quail",
+  "repository": {
+    "url": "https://github.com/1000ch/quail"
+  },
   "author": {
     "name": "Shogo Sensui",
     "email": "shogo.sensui@gmail.com",
     "url": "https://github.com/1000ch"
   },
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "postversion": "git push && git push --tags",
     "test": "xo",
     "start": "electron .",
-    "postversion": "git push && git push --tags",
-    "build": "npm run build:macos && npm run build:linux && npm run build:windows",
-    "build:macos": "electron-packager . --no-prune --overwrite --asar --out=dist --ignore='^media$' --platform=darwin --arch=x64 --icon=static/Icon.icns --app-bundle-id=net.1000ch.quail --osx-sign='Developer ID Application: Shogo Sensui (NZR22QGKNQ)' && cd dist/Quail-darwin-x64 && zip -ryXq9 ../Quail-macos-v${npm_package_version}.zip Quail.app",
-    "build:linux": "electron-packager . --no-prune --overwrite --out=dist --ignore='^media$' --platform=linux --arch=x64 --app-bundle-id=net.1000ch.quail && cd dist/Quail-linux-x64/ && zip -ryq9 ../Quail-linux-v${npm_package_version}.zip *",
-    "build:windows": "electron-packager . --no-prune --overwrite --asar --out=dist --ignore='^media$' --platform=win32 --arch=ia32 --icon=static/Icon.ico --version-string.ProductName=$npm_package_productName && cd dist/Quail-win32-ia32 && zip -ryq9 ../Quail-windows-v${npm_package_version}.zip *"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --macos --linux --windows"
   },
   "dependencies": {
     "devtron": "^1.4.0",
@@ -29,8 +30,48 @@
   },
   "devDependencies": {
     "electron": "^5.0.2",
-    "electron-packager": "^13.1.1",
+    "electron-builder": "^20.43.0",
     "xo": "^0.24.0"
+  },
+  "build": {
+    "files": [
+      "**/*",
+      "!asset"
+    ],
+    "appId": "net.1000ch.quail",
+    "mac": {
+      "category": "public.app-category.productivity",
+      "electronUpdaterCompatibility": ">=2.15.0",
+      "darkModeSupport": true
+    },
+    "dmg": {
+      "iconSize": 160,
+      "contents": [
+        {
+          "x": 180,
+          "y": 170
+        },
+        {
+          "x": 480,
+          "y": 170,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "snap"
+      ],
+      "synopsis": "Unofficial esa.io app",
+      "description": "Quail is unofficial app for esa.io.",
+      "category": "Productivity"
+    },
+    "win": {
+      "verifyUpdateCodeSignature": false
+    }
   },
   "xo": {
     "esnext": true,
