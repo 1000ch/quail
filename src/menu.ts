@@ -74,6 +74,17 @@ const darwinTemplate: MenuItemConstructorOptions[] = [{
     role: 'delete'
   }]
 }, {
+  label: 'View',
+  submenu: [{
+    label: 'Reload',
+    accelerator: 'CmdOrCtrl+R',
+    click: (item, focusedWindow) => {
+      if (focusedWindow) {
+        focusedWindow.reload();
+      }
+    }
+  }]
+}, {
   role: 'window',
   submenu: [{
     role: 'minimize'
@@ -116,6 +127,17 @@ const otherTemplate: MenuItemConstructorOptions[] = [{
     role: 'delete'
   }, {
     type: 'separator'
+  }]
+}, {
+  label: 'View',
+  submenu: [{
+    label: 'Reload',
+    accelerator: 'CmdOrCtrl+R',
+    click: (item, focusedWindow) => {
+      if (focusedWindow) {
+        focusedWindow.reload();
+      }
+    }
   }]
 }, {
   role: 'help',
