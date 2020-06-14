@@ -1,18 +1,16 @@
-'use strict';
-const os = require('os');
-const path = require('path');
-const {app, shell, dialog, Menu} = require('electron');
+import os from 'os';
+import {app, shell, dialog, Menu, MenuItemConstructorOptions} from 'electron';
 
 const appName = app.getName();
 
-const helpSubmenu = [{
+const helpSubmenu: MenuItemConstructorOptions[] = [{
   label: `${appName} Website`,
-  click() {
-    shell.openExternal('https://github.com/1000ch/quail');
+  async click() {
+    await shell.openExternal('https://github.com/1000ch/quail');
   }
 }, {
   label: 'Report an Issue...',
-  click() {
+  async click() {
     const body = `
 <!-- Please succinctly describe your issue and steps to reproduce it. -->
 -
@@ -20,28 +18,25 @@ ${app.getName()} ${app.getVersion()}
 Electron ${process.versions.electron}
 ${process.platform} ${process.arch} ${os.release()}`;
 
-    shell.openExternal(`https://github.com/1000ch/quail/issues/new?body=${encodeURIComponent(body)}`);
+    await shell.openExternal(`https://github.com/1000ch/quail/issues/new?body=${encodeURIComponent(body)}`);
   }
 }];
 
 if (process.platform !== 'darwin') {
   helpSubmenu.push({
-    type: 'separator'
-  }, {
-    role: 'about',
-    click() {
-      dialog.showMessageBox({
+    label: 'about',
+    async click() {
+      await dialog.showMessageBox({
         title: `About ${appName}`,
         message: `${appName} ${app.getVersion()}`,
         detail: 'Created by Shogo Sensui',
-        icon: path.join(__dirname, 'static/Icon.png'),
         buttons: []
       });
     }
   });
 }
 
-const darwinTpl = [{
+const darwinTemplate: MenuItemConstructorOptions[] = [{
   label: appName,
   submenu: [{
     role: 'about'
@@ -54,8 +49,6 @@ const darwinTpl = [{
     type: 'separator'
   }, {
     role: 'hide'
-  }, {
-    role: 'hideothers'
   }, {
     role: 'unhide'
   }, {
@@ -78,11 +71,7 @@ const darwinTpl = [{
   }, {
     role: 'paste'
   }, {
-    role: 'pasteandmatchstyle'
-  }, {
     role: 'delete'
-  }, {
-    role: 'selectall'
   }]
 }, {
   role: 'window',
@@ -104,7 +93,7 @@ const darwinTpl = [{
   submenu: helpSubmenu
 }];
 
-const otherTpl = [{
+const otherTemplate: MenuItemConstructorOptions[] = [{
   label: 'File',
   submenu: [{
     role: 'quit'
@@ -124,19 +113,15 @@ const otherTpl = [{
   }, {
     role: 'paste'
   }, {
-    role: 'pasteandmatchstyle'
-  }, {
     role: 'delete'
   }, {
     type: 'separator'
-  }, {
-    role: 'selectall'
   }]
 }, {
   role: 'help',
   submenu: helpSubmenu
 }];
 
-const tpl = process.platform === 'darwin' ? darwinTpl : otherTpl;
+const template = process.platform === 'darwin' ? darwinTemplate : otherTemplate;
 
-module.exports = Menu.buildFromTemplate(tpl);
+export default Menu.buildFromTemplate(template);
