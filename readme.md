@@ -1,6 +1,6 @@
 # Quail
 
-Unofficial [esa](https://esa.io/) app
+Unofficial but [officially accepted](https://docs.esa.io/posts/158) [esa](https://esa.io/) app 🐦
 
 [![Build Status](https://travis-ci.org/1000ch/quail.svg?branch=master)](https://travis-ci.org/1000ch/quail)
 [![Dependency Status](https://david-dm.org/1000ch/quail.svg)](https://david-dm.org/1000ch/quail)
