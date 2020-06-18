@@ -7,6 +7,7 @@ export default new Config({
       width: 840,
       height: 840
     },
+    baseURL: 'https://esa.io/',
     lastURL: 'https://esa.io/'
   }
 });
