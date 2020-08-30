@@ -22,7 +22,7 @@ function init() {
   });
 
   const version = app.getVersion();
-  const url = `https://hazel-imrgmeuzge.now.sh/update/${process.platform}/${version}`;
+  const url = `https://quail-updater.herokuapp.com/update/${process.platform}/${version}`;
   autoUpdater.setFeedURL({url});
 }
 
