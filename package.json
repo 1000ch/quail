@@ -67,7 +67,7 @@
       ],
       "synopsis": "Unofficial esa.io app",
       "description": "Quail is unofficial app for esa.io.",
-      "category": "Productivity"
+      "category": "ProjectManagement"
     },
     "win": {
       "verifyUpdateCodeSignature": false
