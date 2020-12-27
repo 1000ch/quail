@@ -19,7 +19,7 @@ Unofficial but [officially accepted](https://docs.esa.io/posts/158) [esa](https:
 Alternatively, if you use [Homebrew](http://brew.sh/), you can install via:
 
 ```bash
-$ brew cask install quail
+$ brew install --cask quail
 ```
 
 ### Windows
