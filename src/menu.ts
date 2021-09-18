@@ -1,3 +1,4 @@
+import process from 'process';
 import os from 'os';
 import {app, shell, dialog, Menu, MenuItemConstructorOptions} from 'electron';
 import store from './store';
@@ -10,26 +11,26 @@ const historySubmenu: MenuItemConstructorOptions[] = [{
   async click(item, focusedWindow) {
     const baseURL = store.get('baseURL');
     await focusedWindow.loadURL(baseURL);
-  }
+  },
 }, {
   label: 'Back',
   accelerator: 'CommandOrControl+[',
   click(item, focusedWindow) {
     focusedWindow.webContents.goBack();
-  }
+  },
 }, {
   label: 'Forward',
   accelerator: 'CommandOrControl+]',
   click(item, focusedWindow) {
     focusedWindow.webContents.goForward();
-  }
+  },
 }];
 
 const helpSubmenu: MenuItemConstructorOptions[] = [{
   label: `${appName} Website`,
   async click() {
     await shell.openExternal('https://github.com/1000ch/quail');
-  }
+  },
 }, {
   label: 'Report an Issue...',
   async click() {
@@ -41,11 +42,11 @@ Electron ${process.versions.electron}
 ${process.platform} ${process.arch} ${os.release()}`;
 
     await shell.openExternal(`https://github.com/1000ch/quail/issues/new?body=${encodeURIComponent(body)}`);
-  }
+  },
 }, {
-  type: 'separator'
+  type: 'separator',
 }, {
-  role: 'toggleDevTools'
+  role: 'toggleDevTools',
 }];
 
 if (process.platform !== 'darwin') {
@@ -56,49 +57,49 @@ if (process.platform !== 'darwin') {
         title: `About ${appName}`,
         message: `${appName} ${app.getVersion()}`,
         detail: 'Created by Shogo Sensui',
-        buttons: []
+        buttons: [],
       });
-    }
+    },
   });
 }
 
 const darwinTemplate: MenuItemConstructorOptions[] = [{
   label: appName,
   submenu: [{
-    role: 'about'
+    role: 'about',
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
     role: 'services',
-    submenu: []
+    submenu: [],
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'hide'
+    role: 'hide',
   }, {
-    role: 'unhide'
+    role: 'unhide',
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'quit'
-  }]
+    role: 'quit',
+  }],
 }, {
   label: 'Edit',
   submenu: [{
-    role: 'undo'
+    role: 'undo',
   }, {
-    role: 'redo'
+    role: 'redo',
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'cut'
+    role: 'cut',
   }, {
-    role: 'copy'
+    role: 'copy',
   }, {
-    role: 'paste'
+    role: 'paste',
   }, {
-    role: 'delete'
-  }]
+    role: 'delete',
+  }],
 }, {
   label: 'View',
   submenu: [{
@@ -106,65 +107,65 @@ const darwinTemplate: MenuItemConstructorOptions[] = [{
     accelerator: 'CommandOrControl+R',
     click(item, focusedWindow) {
       focusedWindow.reload();
-    }
+    },
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'togglefullscreen'
+    role: 'togglefullscreen',
   }, {
-    role: 'resetZoom'
+    role: 'resetZoom',
   }, {
-    role: 'zoomIn'
+    role: 'zoomIn',
   }, {
-    role: 'zoomOut'
-  }]
+    role: 'zoomOut',
+  }],
 }, {
   label: 'History',
-  submenu: historySubmenu
+  submenu: historySubmenu,
 }, {
   role: 'window',
   submenu: [{
-    role: 'minimize'
+    role: 'minimize',
   }, {
-    role: 'close'
+    role: 'close',
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'front'
+    role: 'front',
   }, {
-    role: 'togglefullscreen'
-  }]
+    role: 'togglefullscreen',
+  }],
 }, {
   role: 'help',
-  submenu: helpSubmenu
+  submenu: helpSubmenu,
 }];
 
 const otherTemplate: MenuItemConstructorOptions[] = [{
   label: 'File',
   submenu: [{
-    role: 'quit'
-  }]
+    role: 'quit',
+  }],
 }, {
   label: 'Edit',
   submenu: [{
-    role: 'undo'
+    role: 'undo',
   }, {
-    role: 'redo'
+    role: 'redo',
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'cut'
+    role: 'cut',
   }, {
-    role: 'copy'
+    role: 'copy',
   }, {
-    role: 'paste'
+    role: 'paste',
   }, {
-    role: 'delete'
+    role: 'delete',
   }, {
-    type: 'separator'
-  }]
+    type: 'separator',
+  }],
 }, {
   label: 'View',
   submenu: [{
@@ -172,24 +173,24 @@ const otherTemplate: MenuItemConstructorOptions[] = [{
     accelerator: 'CommandOrControl+R',
     click(item, focusedWindow) {
       focusedWindow.reload();
-    }
+    },
   }, {
-    type: 'separator'
+    type: 'separator',
   }, {
-    role: 'togglefullscreen'
+    role: 'togglefullscreen',
   }, {
-    role: 'resetZoom'
+    role: 'resetZoom',
   }, {
-    role: 'zoomIn'
+    role: 'zoomIn',
   }, {
-    role: 'zoomOut'
-  }]
+    role: 'zoomOut',
+  }],
 }, {
   label: 'History',
-  submenu: historySubmenu
+  submenu: historySubmenu,
 }, {
   role: 'help',
-  submenu: helpSubmenu
+  submenu: helpSubmenu,
 }];
 
 const template = process.platform === 'darwin' ? darwinTemplate : otherTemplate;
