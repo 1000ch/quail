@@ -29,10 +29,10 @@
     "electron-store": "^8.0.0"
   },
   "devDependencies": {
-    "electron": "^12.0.6",
+    "electron": "^14.0.1",
     "electron-builder": "^22.10.5",
-    "typescript": "^4.2.4",
-    "xo": "^0.39.1"
+    "typescript": "^4.4.3",
+    "xo": "^0.44.0"
   },
   "main": "out",
   "build": {
@@ -81,6 +81,10 @@
     "envs": [
       "node",
       "browser"
-    ]
+    ],
+    "rules": {
+      "unicorn/prefer-module": "off",
+      "unicorn/prefer-node-protocol": "off"
+    }
   }
 }
