@@ -1,10 +1,6 @@
-# Quail
+# Quail ![GitHub Actions Status](https://github.com/1000ch/quail/workflows/test/badge.svg)
 
 Unofficial but [officially accepted](https://docs.esa.io/posts/158) [esa](https://esa.io/) app 🐦
-
-![GitHub Actions Status](https://github.com/1000ch/quail/workflows/test/badge.svg?branch=master)
-[![Dependency Status](https://david-dm.org/1000ch/quail.svg)](https://david-dm.org/1000ch/quail)
-[![devDependency Status](https://david-dm.org/1000ch/quail/dev-status.svg)](https://david-dm.org/1000ch/quail?type=dev)
 
 ![Quail demo](demo.png)
 
