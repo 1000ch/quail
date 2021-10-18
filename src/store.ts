@@ -9,7 +9,7 @@ export default new Store({
       width: 840,
       height: 840,
     },
-    baseURL: 'https://esa.io/',
-    lastURL: 'https://esa.io/',
+    baseUrl: 'https://esa.io/',
+    lastUrl: 'https://esa.io/',
   },
 });
