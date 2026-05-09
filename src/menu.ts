@@ -10,10 +10,10 @@ const appName = app.getName();
 const historySubmenu: MenuItemConstructorOptions[] = [{
   label: 'Home',
   accelerator: 'CommandOrControl+Shift+H',
-  click(item, focusedWindow) {
+  async click(item, focusedWindow) {
     const baseUrl = store.get('baseUrl');
     if (focusedWindow instanceof BrowserWindow) {
-      void focusedWindow.loadURL(baseUrl);
+      await focusedWindow.loadURL(baseUrl);
     }
   },
 }, {
@@ -36,12 +36,12 @@ const historySubmenu: MenuItemConstructorOptions[] = [{
 
 const helpSubmenu: MenuItemConstructorOptions[] = [{
   label: `${appName} Website`,
-  click() {
-    void shell.openExternal('https://github.com/1000ch/quail');
+  async click() {
+    await shell.openExternal('https://github.com/1000ch/quail');
   },
 }, {
   label: 'Report an Issue...',
-  click() {
+  async click() {
     const body = `
 <!-- Please succinctly describe your issue and steps to reproduce it. -->
 -
@@ -49,7 +49,7 @@ ${app.getName()} ${app.getVersion()}
 Electron ${process.versions.electron}
 ${process.platform} ${process.arch} ${os.release()}`;
 
-    void shell.openExternal(`https://github.com/1000ch/quail/issues/new?body=${encodeURIComponent(body)}`);
+    await shell.openExternal(`https://github.com/1000ch/quail/issues/new?body=${encodeURIComponent(body)}`);
   },
 }, {
   type: 'separator',
@@ -60,8 +60,8 @@ ${process.platform} ${process.arch} ${os.release()}`;
 if (process.platform !== 'darwin') {
   helpSubmenu.push({
     label: 'about',
-    click() {
-      void dialog.showMessageBox({
+    async click() {
+      await dialog.showMessageBox({
         title: `About ${appName}`,
         message: `${appName} ${app.getVersion()}`,
         detail: 'Created by Shogo Sensui',

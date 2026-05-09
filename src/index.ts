@@ -91,31 +91,30 @@ app.on('ready', async () => {
   if (process.platform === 'darwin') {
     app.dock?.setIcon(resolve(__dirname, '../static/Icon.png'));
   }
-  
+
   Menu.setApplicationMenu(appMenu);
   mainWindow = createMainWindow();
-  const win = mainWindow;
-  tray.create(win);
+  tray.create(mainWindow);
 
-  win.webContents.on('dom-ready', async () => {
-    await win.webContents.insertCSS(browserCss);
-    win.show();
+  mainWindow.webContents.on('dom-ready', async () => {
+    await mainWindow!.webContents.insertCSS(browserCss);
+    mainWindow!.show();
   });
 
-  win.webContents.setWindowOpenHandler(({url}) => {
-    void shell.openExternal(url);
+  mainWindow.webContents.setWindowOpenHandler(details => {
+    void shell.openExternal(details.url);
     return {action: 'deny'};
   });
 
-  win.webContents.on('did-navigate', (event, url) => {
+  mainWindow.webContents.on('did-navigate', (event, url) => {
     store.set('lastUrl', url);
   });
 
   const lastUrl = store.get('lastUrl');
-  await win.loadURL(lastUrl);
+  await mainWindow.loadURL(lastUrl);
 
   update.init();
-  update.checkUpdate();
+  await update.checkUpdate();
 });
 
 app.on('activate', () => {
