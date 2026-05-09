@@ -1,18 +1,26 @@
-import {readFileSync} from 'fs';
-import {resolve} from 'path';
-import process from 'process';
-import {app, shell, Menu, BrowserWindow} from 'electron';
+import {readFileSync} from 'node:fs';
+import {resolve, dirname} from 'node:path';
+import process from 'node:process';
+import {fileURLToPath} from 'node:url';
+import {
+  app,
+  shell,
+  BrowserWindow,
+  Menu,
+} from 'electron';
 import electronDl from 'electron-dl';
 import electronContextMenu from 'electron-context-menu';
-import appMenu from './menu';
-import store from './store';
-import tray from './tray';
-import update from './update';
+import appMenu from './menu.js';
+import store from './store.js';
+import tray from './tray.js';
+import update from './update.js';
 
 electronDl();
 electronContextMenu();
 
-let mainWindow: BrowserWindow = null;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+let mainWindow: BrowserWindow | undefined;
 let isQuitting = false;
 
 const cssPath = resolve(__dirname, '../browser.css');
@@ -23,7 +31,7 @@ app.on('second-instance', () => {
     mainWindow.restore();
   }
 
-  mainWindow.show();
+  mainWindow?.show();
 });
 
 if (!app.requestSingleInstanceLock()) {
@@ -41,17 +49,14 @@ function createMainWindow() {
     y: lastWindowState.y,
     width: lastWindowState.width,
     height: lastWindowState.height,
-    icon: process.platform === 'linux' && resolve(__dirname, '../static/Icon.png'),
+    icon: process.platform === 'linux' ? resolve(__dirname, '../static/Icon.png') : undefined,
     minWidth: 480,
     minHeight: 480,
     titleBarStyle: 'hiddenInset',
     autoHideMenuBar: true,
     backgroundColor: '#fff',
     webPreferences: {
-      nativeWindowOpen: true,
       nodeIntegration: false,
-      plugins: true,
-      preload: resolve(__dirname, '../browser.js'),
     },
   });
 
@@ -83,33 +88,38 @@ function createMainWindow() {
 }
 
 app.on('ready', async () => {
+  if (process.platform === 'darwin') {
+    app.dock?.setIcon(resolve(__dirname, '../static/Icon.png'));
+  }
+  
   Menu.setApplicationMenu(appMenu);
   mainWindow = createMainWindow();
-  tray.create(mainWindow);
+  const win = mainWindow;
+  tray.create(win);
 
-  mainWindow.webContents.on('dom-ready', async () => {
-    await mainWindow.webContents.insertCSS(browserCss);
-    mainWindow.show();
+  win.webContents.on('dom-ready', async () => {
+    await win.webContents.insertCSS(browserCss);
+    win.show();
   });
 
-  mainWindow.webContents.on('new-window', async (event, url) => {
-    event.preventDefault();
-    await shell.openExternal(url);
+  win.webContents.setWindowOpenHandler(({url}) => {
+    void shell.openExternal(url);
+    return {action: 'deny'};
   });
 
-  mainWindow.webContents.on('did-navigate', (event, url) => {
+  win.webContents.on('did-navigate', (event, url) => {
     store.set('lastUrl', url);
   });
 
   const lastUrl = store.get('lastUrl');
-  await mainWindow.loadURL(lastUrl);
+  await win.loadURL(lastUrl);
 
   update.init();
   update.checkUpdate();
 });
 
 app.on('activate', () => {
-  mainWindow.show();
+  mainWindow?.show();
 });
 
 app.on('before-quit', () => {
