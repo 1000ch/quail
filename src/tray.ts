@@ -1,15 +1,20 @@
-import path from 'path';
-import process from 'process';
-import {app, Menu, Tray, BrowserWindow} from 'electron';
+import {resolve, dirname} from 'node:path';
+import process from 'node:process';
+import {fileURLToPath} from 'node:url';
+import {
+  app, Menu, Tray, type BrowserWindow,
+} from 'electron';
 
-let tray: Tray = null;
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+let tray: Tray | undefined;
 
 function create(window: BrowserWindow) {
   if (process.platform === 'darwin' || tray) {
     return;
   }
 
-  const iconPath = path.resolve(__dirname, '../static/IconTray.png');
+  const iconPath = resolve(__dirname, '../static/IconTray.png');
 
   const toggleWin = () => {
     if (window.isVisible()) {
