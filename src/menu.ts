@@ -1,7 +1,12 @@
 import process from 'node:process';
 import os from 'node:os';
 import {
-  app, shell, dialog, Menu, BrowserWindow, type MenuItemConstructorOptions,
+  app,
+  shell,
+  dialog,
+  Menu,
+  BrowserWindow,
+  type MenuItemConstructorOptions,
 } from 'electron';
 import store from './store.js';
 

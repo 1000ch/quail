@@ -2,7 +2,10 @@ import {resolve, dirname} from 'node:path';
 import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 import {
-  app, Menu, Tray, type BrowserWindow,
+  app,
+  Menu,
+  Tray,
+  type BrowserWindow,
 } from 'electron';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -36,7 +39,7 @@ function create(window: BrowserWindow) {
   }]);
 
   tray = new Tray(iconPath);
-  tray.setToolTip(`${app.getName()}`);
+  tray.setToolTip(app.getName());
   tray.setContextMenu(contextMenu);
   tray.on('click', toggleWin);
 }
